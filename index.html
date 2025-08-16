@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mridha Family List</title>
+<title>Mridha Family Tree</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -17,92 +17,46 @@ h1 {
   color: #333;
 }
 
-/* Simple family list */
-.family-list {
+.tree ul {
+  padding-top: 20px;
+  position: relative;
   list-style-type: none;
-  padding-left: 0;
-  color: #111;
+  text-align: center;
 }
 
-.family-list li {
-  margin: 4px 0;
-  line-height: 1.6;
+.tree li {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+  padding: 20px 5px 0 5px;
 }
 
-/* Indentation for children */
-.family-list ul {
-  padding-left: 20px;
+/* Horizontal lines connecting siblings */
+.tree li::before, .tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 20px;
+  border-top: 2px solid #333;
 }
 
-/* Optional: different font weight for parent vs children */
-.family-list li > ul > li {
-  font-weight: normal;
+.tree li::before { left: -50%; }
+.tree li::after { right: -50%; border-left: 2px solid #333; }
+
+/* Remove lines if only child */
+.tree li:only-child::before, .tree li:only-child::after { display: none; }
+
+/* Vertical line from parent to children */
+.tree ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
 }
 
-</style>
-</head>
-<body>
-
-<h1>Mridha Family</h1>
-
-<ul id="familyList" class="family-list"></ul>
-
-<script>
-const familyData = {
-  "name": "Babar Ali Haolader",
-  "children": [
-    {
-      "name": "Akkel Ali Mridha",
-      "children": [
-        {"name": "Md. Anes Mridha"},
-        {"name": "Md. Abser Kerani",
-          "children": [
-            {"name": "Manik",
-              "children": [
-                {"name": "a"},
-                {"name": "b"}
-              ]
-            },
-            {"name": "2"}, {"name": "3"}, {"name": "4"}, {"name": "5"},
-            {"name": "6"}, {"name": "7"}, {"name": "8"}, {"name": "9"},
-            {"name": "Lotif"}
-          ]
-        },
-        {"name": "Md. Afes Mridha"},
-        {"name": "Md. Momin Uddin Mridha"},
-        {"name": "Md. Hossen Uddin Mridha"},
-        {"name": "Md. Asmot Ali Mridha"},
-        {"name": "Mst. Amena"},
-        {"name": "Dont Know"},
-        {"name": "Dont Know"}
-      ]
-    },
-    {
-      "name": "Akram Ali Mridha",
-      "children": [
-        {"name": "Mobarak Ali"},
-        {"name": "Gohur Ali"}
-      ]
-    }
-  ]
-};
-
-const container = document.getElementById('familyList');
-
-function renderFamily(member) {
-  const li = document.createElement('li');
-  li.textContent = member.name;
-
-  if (member.children && member.children.length > 0) {
-    const ul = document.createElement('ul');
-    member.children.forEach(child => ul.appendChild(renderFamily(child)));
-    li.appendChild(ul);
-  }
-
-  return li;
-}
-
-container.appendChild(renderFamily(familyData));
-</script>
-
-</bo
+/* Boxes for each member */
+.t
