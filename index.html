@@ -16,47 +16,52 @@ h1 {
   margin-bottom: 20px;
 }
 
-.tree {
-  display: flex;
-  justify-content: center;
-}
-
-ul {
+.tree ul {
   padding-top: 20px;
   position: relative;
-  display: table;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* allows children to move to next line */
+  list-style-type: none;
 }
 
-li {
-  display: table-cell;
+.tree li {
   text-align: center;
   vertical-align: top;
   padding: 20px 5px 0 5px;
   position: relative;
 }
 
-li::before, li::after {
+/* Horizontal line connecting siblings */
+.tree li::before, .tree li::after {
   content: '';
   position: absolute;
   top: 0;
-  right: 50%;
-  border-top: 2px solid #333;
   width: 50%;
   height: 20px;
+  border-top: 2px solid #333;
 }
 
-li::after {
-  right: auto;
-  left: 50%;
-  border-left: 2px solid #333;
-}
+.tree li::before { left: -50%; }
+.tree li::after { right: -50%; border-left: 2px solid #333; }
 
-li:only-child::before, li:only-child::after {
+.tree li:only-child::before,
+.tree li:only-child::after {
   display: none;
 }
 
-li div {
+/* Vertical line from parent to children */
+.tree ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
+}
+
+/* Boxes for each member */
+.tree li div {
   display: inline-block;
   padding: 10px 20px;
   border: 2px solid #4CAF50;
@@ -66,26 +71,17 @@ li div {
   color: #333;
   position: relative;
   z-index: 1;
-}
-
-ul ul::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  border-left: 2px solid #333;
-  height: 20px;
+  white-space: nowrap;
 }
 </style>
 </head>
 <body>
 
-<h1>Mdridha Family Tree</h1>
+<h1>Mridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
 <script>
-// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -94,23 +90,18 @@ const familyData = {
       "children": [
         {"name": "Md. Anes Mridha"},
         {"name": "Md. Abser Kerani",
-                      "children": [
-                      {"name": "Manik",
-                                        "children": [
-                                        {"name": "a"},
-                                        {"name": "b"}]
-                                      
-                      },
-                      {"name": "2"},
-                      {"name": "3"},
-                      {"name": "4"},
-                      {"name": "5"},
-                      {"name": "6"},
-                      {"name": "7"},
-                      {"name": "8"},
-                      {"name": "9"},
-                      {"name": "Lotif"}]                                   
-                                        },
+          "children": [
+            {"name": "Manik",
+              "children": [
+                {"name": "a"},
+                {"name": "b"}
+              ]
+            },
+            {"name": "2"}, {"name": "3"}, {"name": "4"}, {"name": "5"},
+            {"name": "6"}, {"name": "7"}, {"name": "8"}, {"name": "9"},
+            {"name": "Lotif"}
+          ]
+        },
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
@@ -153,10 +144,3 @@ treeContainer.appendChild(ulRoot);
 
 </body>
 </html>
-
-
-
-
-
-
-
