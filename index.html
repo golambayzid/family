@@ -3,66 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Tree</title>
+  <title>My Family Tree</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f0f2f5;
       display: flex;
       justify-content: center;
-      align-items: center;
+      padding: 20px;
+    }
+
+    .tree {
+      display: flex;
+      justify-content: center;
       flex-direction: column;
-      min-height: 100vh;
-      background: #f4f4f9;
+      align-items: center;
     }
-    h1 {
-      margin-bottom: 20px;
-    }
+
     ul {
-      list-style-type: none;
-      padding-left: 20px;
-      border-left: 2px solid #999;
-      margin: 0;
-    }
-    li {
-      margin: 8px 0;
+      padding-top: 20px; 
       position: relative;
+      list-style-type: none;
+      text-align: center;
     }
-    li::before {
-      content: "";
+
+    ul::before {
+      content: '';
+      display: block;
+      width: 2px;
+      background: #000;
       position: absolute;
-      left: -22px;
-      top: 10px;
-      width: 20px;
-      height: 2px;
-      background: #999;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
-    .node {
-      padding: 6px 12px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+    li {
+      margin: 0;
+      padding: 20px 5px 0 5px;
+      position: relative;
+      text-align: center;
+    }
+
+    li::before, li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 50%;
+      border-top: 2px solid #000;
+      width: 50%;
+      height: 20px;
+    }
+
+    li::after {
+      right: auto;
+      left: 50%;
+      border-left: 2px solid #000;
+    }
+
+    li:only-child::before, li:only-child::after {
+      display: none;
+    }
+
+    li div {
       display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+      background: #fff;
+      color: #333;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>👨‍👩‍👧 Family Tree</h1>
-  <div id="tree"></div>
+  <div class="tree" id="familyTree"></div>
 
   <script>
-    async function loadFamilyTree() {
-      try {
-        const response = await fetch('family.json');
-        const data = await response.json();
-        const container = document.getElementById('tree');
+    // Load your family JSON file
+    fetch('family.json')
+      .then(response => response.json())
+      .then(data => {
+        const treeContainer = document.getElementById('familyTree');
 
-        function createTree(node) {
-          let li = document.createElement('li');
-          li.innerHTML = `<div class=\"node\">${node.name}</div>`;
-
-          if (node.children && node.children.length > 0) {
-            let ul = document.createElement('ul');
-            node.children.forEach(child => {
+        function createTree(member) {
+          const li = document.createElement('li');
+          li.innerHTML = `<div>${member.name}</div>`;
+          
+          if (member.children && member.children.length > 0) {
+            const ul = document.createElement('ul');
+            member.children.forEach(child => {
               ul.appendChild(createTree(child));
             });
             li.appendChild(ul);
@@ -70,16 +101,11 @@
           return li;
         }
 
-        let ul = document.createElement('ul');
-        ul.appendChild(createTree(data));
-        container.appendChild(ul);
-
-      } catch (error) {
-        console.error('Error loading family.json', error);
-      }
-    }
-
-    loadFamilyTree();
+        const ulRoot = document.createElement('ul');
+        ulRoot.appendChild(createTree(data));
+        treeContainer.appendChild(ulRoot);
+      })
+      .catch(err => console.error('Error loading JSON:', err));
   </script>
 </body>
 </html>
