@@ -4,183 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mridha Family Tree</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: Arial, sans-serif;
   background: #f0f2f5;
   padding: 20px;
-  color: #343a40;
 }
 
 h1 {
   text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #2c3e50;
+  margin-bottom: 20px;
 }
 
-.family-tree {
+.tree {
   display: flex;
   justify-content: center;
-  overflow: auto;
 }
 
-.tree-node {
-  padding: 15px 25px;
-  background: #fff;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  font-weight: 700;
-  color: #2c3e50;
+ul {
+  padding-top: 20px;
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
+
+li {
+  display: table-cell;
   text-align: center;
-  min-width: 180px;
-  margin: 10px;
+  vertical-align: top;
+  padding: 20px 5px 0 5px;
   position: relative;
-  cursor: default;
 }
 
-.tree-node.root {
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-  color: white;
-  border: none;
-  padding: 20px 35px;
-  font-size: 1.3rem;
-}
-
-.children-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 50px;
-  position: relative;
-  padding-top: 20px;
-}
-
-.children-container::before {
+li::before, li::after {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 2px;
-  height: 20px;
-  background: #4CAF50;
-}
-
-.child {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-top: 20px;
-}
-
-.child::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2px;
-  height: 20px;
-  background: #4CAF50;
-}
-
-.child::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  height: 2px;
-  background: #4CAF50;
-}
-
-.child:first-child::after {
-  left: 50%;
-  right: 0;
-}
-
-.child:last-child::after {
-  left: 0;
   right: 50%;
+  border-top: 2px solid #333;
+  width: 50%;
+  height: 20px;
 }
 
-.child:only-child::after {
+li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #333;
+}
+
+li:only-child::before, li:only-child::after {
   display: none;
 }
 
-.child:not(:first-child):not(:last-child)::after {
-  left: 0;
-  right: 0;
+li div {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  background: #fff;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+ul ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
 }
 </style>
 </head>
 <body>
 
-<h1><i class="fas fa-tree"></i> Mridha Family Tree</h1>
+<h1>Mdridha Family Tree</h1>
 
-<div class="family-tree" id="familyTree"></div>
+<div class="tree" id="familyTree"></div>
 
 <script>
+// Corrected family data
 const familyData = {
-  name: "Babar Ali Haolader",
-  children: [
+  "name": "Babar Ali Haolader",
+  "children": [
     {
-      name: "Akkel Ali Mdridha",
-      children: [
-        { name: "Md. Anes Mridha" },
-        { 
-          name: "Md. Abser Kerani",
-          children: [
-            { name: "Manik", children: [{name:"a"}, {name:"b"}] },
-            {name:"2"}, {name:"3"}, {name:"4"}, {name:"5"}, {name:"6"}, {name:"7"}, {name:"8"}, {name:"9"}, {name:"Lotif"}
-          ]
-        },
-        { name: "Md. Afes Mridha" },
-        { name: "Md. Momin Uddin Mridha" },
-        { name: "Md. Hossen Uddin Mridha" },
-        { name: "Md. Asmot Ali Mridha" },
-        { name: "Mst. Amena" },
-        { name: "Unknown" },
-        { name: "Unknown" }
+      "name": "Akkel Ali Mdridha",
+      "children": [
+        {"name": "Md. Anes Mridha"},
+        {"name": "Md. Abser Kerani",
+                      "children": [
+                      {"name": "Manik",
+                                        "children": [
+                                        {"name": "a"},
+                                        {"name": "b"}]
+                                      
+                      },
+                      {"name": "2"},
+                      {"name": "3"},
+                      {"name": "4"},
+                      {"name": "5"},
+                      {"name": "6"},
+                      {"name": "7"},
+                      {"name": "8"},
+                      {"name": "9"},
+                      {"name": "Lotif"}]                                   
+                                        },
+        {"name": "Md. Afes Mridha"},
+        {"name": "Md. Momin Uddin Mridha"},
+        {"name": "Md. Hossen Uddin Mridha"},
+        {"name": "Md. Asmot Ali Mridha"},
+        {"name": "Mst. Amena"},
+        {"name": "Dont Know"},
+        {"name": "Dont Know"}
       ]
     },
     {
-      name: "Akram Ali Mridha",
-      children: [
-        { name: "Mobarak Ali" },
-        { name: "Gohur Ali" }
+      "name": "Akram Ali Mridha",
+      "children": [
+        {"name": "Mobarak Ali"},
+        {"name": "Gohur Ali"}
       ]
     }
   ]
 };
 
-// Recursive function to build tree
-function createTree(member, isRoot = false) {
-  const node = document.createElement('div');
-  node.className = 'tree-node' + (isRoot ? ' root' : '');
-  node.textContent = member.name;
+const treeContainer = document.getElementById('familyTree');
 
-  if (member.children && member.children.length) {
-    const container = document.createElement('div');
-    container.className = 'children-container';
-    
+function createTree(member) {
+  const li = document.createElement('li');
+  li.innerHTML = `<div>${member.name}</div>`;
+
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
     member.children.forEach(child => {
-      const childDiv = document.createElement('div');
-      childDiv.className = 'child';
-      childDiv.appendChild(createTree(child));
-      container.appendChild(childDiv);
+      ul.appendChild(createTree(child));
     });
-
-    node.appendChild(container);
+    li.appendChild(ul);
   }
-
-  return node;
+  return li;
 }
 
-const treeContainer = document.getElementById('familyTree');
-treeContainer.appendChild(createTree(familyData, true));
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
