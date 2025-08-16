@@ -1,21 +1,79 @@
 {
-  "name": "Aziz Mdridha Mdridha",
+  "name": "Generation 1 - A",
   "children": [
     {
-      "name": "Father Mdridha",
+      "name": "Generation 2 - B1",
       "children": [
-        {"name": "Child1 Mdridha"},
-        {"name": "Child2 Mdridha"}
+        {
+          "name": "Generation 3 - C1",
+          "children": [
+            {
+              "name": "Generation 4 - D1",
+              "children": [
+                {
+                  "name": "Generation 5 - E1",
+                  "children": [
+                    {
+                      "name": "Generation 6 - F1",
+                      "children": [
+                        {
+                          "name": "Generation 7 - G1",
+                          "children": [
+                            {"name": "G1 Child1"},
+                            {"name": "G1 Child2"}
+                          ]
+                        },
+                        {
+                          "name": "Generation 7 - G2",
+                          "children": [
+                            {"name": "G2 Child1"},
+                            {"name": "G2 Child2"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Generation 6 - F2",
+                      "children": [
+                        {"name": "F2 Child1"},
+                        {"name": "F2 Child2"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Generation 5 - E2",
+                  "children": [
+                    {"name": "E2 Child1"},
+                    {"name": "E2 Child2"}
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Generation 4 - D2",
+              "children": [
+                {"name": "D2 Child1"},
+                {"name": "D2 Child2"}
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Generation 3 - C2",
+          "children": [
+            {"name": "C2 Child1"},
+            {"name": "C2 Child2"}
+          ]
+        }
       ]
     },
     {
-      "name": "Uncle Mdridha",
+      "name": "Generation 2 - B2",
       "children": [
-        {"name": "Cousin1 Mdridha"},
-        {"name": "Cousin2vvvv Mdridha"}
+        {"name": "B2 Child1"},
+        {"name": "B2 Child2"}
       ]
     }
   ]
 }
-
-
