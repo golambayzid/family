@@ -3,95 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simple Mridha Family Tree</title>
+<title>Mridha Family Tree</title>
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f9f9f9;
+  background: #f0f2f5;
   padding: 20px;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
 }
 
-/* Boxes for each member */
-.family-tree ul {
-  list-style-type: none;
-  padding-left: 20px;
+.tree {
+  display: flex;
+  justify-content: center;
 }
 
-.family-tree li {
-  margin: 5px 0;
+ul {
+  padding-top: 20px;
+  position: relative;
+  display: table;
+  margin: 0 auto;
 }
 
-.family-tree li div {
+li {
+  display: table-cell;
+  text-align: center;
+  vertical-align: top;
+  padding: 20px 5px 0 5px;
+  position: relative;
+}
+
+li::before, li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #333;
+  width: 50%;
+  height: 20px;
+}
+
+li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #333;
+}
+
+li:only-child::before, li:only-child::after {
+  display: none;
+}
+
+li div {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 10px 20px;
   border: 2px solid #4CAF50;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #fff;
   font-weight: bold;
   color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+ul ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
 }
 </style>
 </head>
 <body>
 
-<h1>Mridha Family Tree</h1>
+<h1>Mdridha Family Tree</h1>
 
-<div class="family-tree">
-  <ul>
-    <li>
-      <div>Babar Ali Haolader</div>
-      <ul>
-        <li>
-          <div>Akkel Ali Mridha</div>
-          <ul>
-            <li><div>Md. Anes Mridha</div></li>
-            <li>
-              <div>Md. Abser Kerani</div>
-              <ul>
-                <li>
-                  <div>Manik</div>
-                  <ul>
-                    <li><div>a</div></li>
-                    <li><div>b</div></li>
-                  </ul>
-                </li>
-                <li><div>2</div></li>
-                <li><div>3</div></li>
-                <li><div>4</div></li>
-                <li><div>5</div></li>
-                <li><div>6</div></li>
-                <li><div>7</div></li>
-                <li><div>8</div></li>
-                <li><div>9</div></li>
-                <li><div>Lotif</div></li>
-              </ul>
-            </li>
-            <li><div>Md. Afes Mridha</div></li>
-            <li><div>Md. Momin Uddin Mridha</div></li>
-            <li><div>Md. Hossen Uddin Mridha</div></li>
-            <li><div>Md. Asmot Ali Mridha</div></li>
-            <li><div>Mst. Amena</div></li>
-            <li><div>Dont Know</div></li>
-            <li><div>Dont Know</div></li>
-          </ul>
-        </li>
-        <li>
-          <div>Akram Ali Mridha</div>
-          <ul>
-            <li><div>Mobarak Ali</div></li>
-            <li><div>Gohur Ali</div></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+<div class="tree" id="familyTree"></div>
+
+<script>
+// Corrected family data
+const familyData = {
+  "name": "Babar Ali Haolader",
+  "children": [
+    {
+      "name": "Akkel Ali Mdridha",
+      "children": [
+        {"name": "Md. Anes Mridha"},
+        {"name": "Md. Abser Kerani",
+                      "children": [
+                      {"name": "Manik",
+                                        "children": [
+                                        {"name": "a"},
+                                        {"name": "b"}]
+                                      
+                      },
+                      {"name": "2"},
+                      {"name": "3"},
+                      {"name": "4"},
+                      {"name": "5"},
+                      {"name": "6"},
+                      {"name": "7"},
+                      {"name": "8"},
+                      {"name": "9"},
+                      {"name": "Lotif"}]                                   
+                                        },
+        {"name": "Md. Afes Mridha"},
+        {"name": "Md. Momin Uddin Mridha"},
+        {"name": "Md. Hossen Uddin Mridha"},
+        {"name": "Md. Asmot Ali Mridha"},
+        {"name": "Mst. Amena"},
+        {"name": "Dont Know"},
+        {"name": "Dont Know"}
+      ]
+    },
+    {
+      "name": "Akram Ali Mridha",
+      "children": [
+        {"name": "Mobarak Ali"},
+        {"name": "Gohur Ali"}
+      ]
+    }
+  ]
+};
+
+const treeContainer = document.getElementById('familyTree');
+
+function createTree(member) {
+  const li = document.createElement('li');
+  li.innerHTML = `<div>${member.name}</div>`;
+
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => {
+      ul.appendChild(createTree(child));
+    });
+    li.appendChild(ul);
+  }
+  return li;
+}
+
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
+</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
