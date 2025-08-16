@@ -11,17 +11,22 @@
       padding: 20px;
     }
 
-    .tree {
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .tree-container {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
       overflow-x: auto;
       padding: 20px;
     }
 
     ul {
       display: flex;
-      list-style-type: none;
+      list-style: none;
       padding-left: 20px;
       position: relative;
     }
@@ -32,17 +37,26 @@
       position: relative;
     }
 
-    li div {
+    li div.member {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #333;
       background: #4CAF50;
       color: #fff;
       font-weight: bold;
-      border-radius: 8px;
-      border: 2px solid #333;
+      width: 120px;
     }
 
-    /* Horizontal connectors */
+    li div.member img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 5px;
+      border: 2px solid #fff;
+    }
+
+    /* Horizontal connector */
     li::before {
       content: '';
       position: absolute;
@@ -71,27 +85,29 @@
 </head>
 <body>
 
-  <h1 style="text-align:center; margin-bottom:20px;">Mdridha Family Tree</h1>
-
-  <div class="tree" id="familyTree"></div>
+  <h1>Mdridha Family Tree</h1>
+  <div class="tree-container" id="familyTree"></div>
 
   <script>
-    // Mdridha family data
+    // Family data – add your names and optional photos here
     const familyData = {
       "name": "Grandfather Mdridha",
+      "photo": "https://via.placeholder.com/80",
       "children": [
         {
           "name": "Father Mdridha",
+          "photo": "https://via.placeholder.com/80",
           "children": [
-            {"name": "Child1 Mdridha"},
-            {"name": "Child2 Mdridha"}
+            {"name": "Child1 Mdridha", "photo": "https://via.placeholder.com/80"},
+            {"name": "Child2 Mdridha", "photo": "https://via.placeholder.com/80"}
           ]
         },
         {
           "name": "Uncle Mdridha",
+          "photo": "https://via.placeholder.com/80",
           "children": [
-            {"name": "Cousin1 Mdridha"},
-            {"name": "Cousin2 Mdridha"}
+            {"name": "Cousin1 Mdridha", "photo": "https://via.placeholder.com/80"},
+            {"name": "Cousin2 Mdridha", "photo": "https://via.placeholder.com/80"}
           ]
         }
       ]
@@ -101,7 +117,12 @@
 
     function createTree(member) {
       const li = document.createElement('li');
-      li.innerHTML = `<div>${member.name}</div>`;
+      li.innerHTML = `
+        <div class="member">
+          ${member.photo ? `<img src="${member.photo}" alt="${member.name}">` : ''}
+          <div>${member.name}</div>
+        </div>
+      `;
 
       if (member.children && member.children.length > 0) {
         const ul = document.createElement('ul');
@@ -110,7 +131,6 @@
         });
         li.appendChild(ul);
       }
-
       return li;
     }
 
