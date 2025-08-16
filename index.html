@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mdridha Family Tree with Arrows</title>
+<title>Mdridha Family Tree</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -36,6 +36,26 @@ li {
   position: relative;
 }
 
+li::before, li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #333;
+  width: 50%;
+  height: 20px;
+}
+
+li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #333;
+}
+
+li:only-child::before, li:only-child::after {
+  display: none;
+}
+
 li div {
   display: inline-block;
   padding: 10px 20px;
@@ -48,53 +68,24 @@ li div {
   z-index: 1;
 }
 
-/* Horizontal connector lines */
-li::before, li::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 2px;
-  background: #333;
-}
-
-li::before { right: 50%; border-top: 2px solid #333; }
-li::after { left: 50%; border-top: 2px solid #333; }
-
-li:only-child::before,
-li:only-child::after {
-  display: none;
-}
-
-/* Vertical connector lines with arrow */
 ul ul::before {
   content: '';
   position: absolute;
   top: -20px;
   left: 50%;
-  width: 2px;
+  border-left: 2px solid #333;
   height: 20px;
-  background: #333;
-}
-
-li div::after {
-  content: '↓';  /* Arrow pointing to child */
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
-  color: #333;
 }
 </style>
 </head>
 <body>
 
-<h1>Mdridha Family Tree with Arrows</h1>
+<h1>Mdridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
 <script>
+// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -103,3 +94,46 @@ const familyData = {
       "children": [
         {
           "name": "Abser Kerani",
+          "children": [
+            {"name": "Manik"},
+            {"name": "Lotif"}
+          ]
+        },
+        {"name": "Child1 Mdridha"},
+        {"name": "Child1 Mdridha"},
+        {"name": "Child2 Mdridha"}
+      ]
+    },
+    {
+      "name": "Akram Ali Mridha",
+      "children": [
+        {"name": "Mobarak Ali"},
+        {"name": "Gohur Ali"}
+      ]
+    }
+  ]
+};
+
+const treeContainer = document.getElementById('familyTree');
+
+function createTree(member) {
+  const li = document.createElement('li');
+  li.innerHTML = `<div>${member.name}</div>`;
+
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => {
+      ul.appendChild(createTree(child));
+    });
+    li.appendChild(ul);
+  }
+  return li;
+}
+
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
+</script>
+
+</body>
+</html>
