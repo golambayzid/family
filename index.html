@@ -76,47 +76,34 @@
   <div class="tree" id="familyTree"></div>
 
   <script>
-    // Mdridha family data
-    const familyData = {
-      "name": "Grandfather Mdridha",
-      "children": [
-        {
-          "name": "Father Mdridha",
-          "children": [
-            {"name": "Child1 Mdridha"},
-            {"name": "Child2 Mdridha"}
-          ]
-        },
-        {
-          "name": "Uncle Mdridha",
-          "children": [
-            {"name": "Cousin1 Mdridha"},
-            {"name": "Cousin2 Mdridha"}
-          ]
-        }
-      ]
-    };
-
     const treeContainer = document.getElementById('familyTree');
 
-    function createTree(member) {
-      const li = document.createElement('li');
-      li.innerHTML = `<div>${member.name}</div>`;
+    // Fetch family data from JSON file
+    fetch('family.json')
+      .then(response => response.json())
+      .then(familyData => {
 
-      if (member.children && member.children.length > 0) {
-        const ul = document.createElement('ul');
-        member.children.forEach(child => {
-          ul.appendChild(createTree(child));
-        });
-        li.appendChild(ul);
-      }
+        function createTree(member) {
+          const li = document.createElement('li');
+          li.innerHTML = `<div>${member.name}</div>`;
 
-      return li;
-    }
+          if (member.children && member.children.length > 0) {
+            const ul = document.createElement('ul');
+            member.children.forEach(child => {
+              ul.appendChild(createTree(child));
+            });
+            li.appendChild(ul);
+          }
 
-    const ulRoot = document.createElement('ul');
-    ulRoot.appendChild(createTree(familyData));
-    treeContainer.appendChild(ulRoot);
+          return li;
+        }
+
+        const ulRoot = document.createElement('ul');
+        ulRoot.appendChild(createTree(familyData));
+        treeContainer.appendChild(ulRoot);
+
+      })
+      .catch(err => console.error("Error loading JSON:", err));
   </script>
 
 </body>
