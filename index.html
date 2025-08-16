@@ -5,107 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Family Tree</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .tree {
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
       flex-direction: column;
       align-items: center;
     }
 
-    ul {
-      padding-top: 20px; 
-      position: relative;
-      list-style-type: none;
+    header {
+      padding: 40px 20px;
       text-align: center;
-    }
-
-    ul::before {
-      content: '';
-      display: block;
-      width: 2px;
-      background: #000;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    li {
-      margin: 0;
-      padding: 20px 5px 0 5px;
-      position: relative;
-      text-align: center;
-    }
-
-    li::before, li::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 50%;
-      border-top: 2px solid #000;
-      width: 50%;
-      height: 20px;
-    }
-
-    li::after {
-      right: auto;
-      left: 50%;
-      border-left: 2px solid #000;
-    }
-
-    li:only-child::before, li:only-child::after {
-      display: none;
-    }
-
-    li div {
-      display: inline-block;
-      padding: 10px 20px;
-      border: 2px solid #4CAF50;
-      border-radius: 8px;
-      background: #fff;
-      color: #333;
+      font-size: 2.5em;
       font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .intro {
+      max-width: 800px;
+      text-align: center;
+      margin: 20px 20px 40px;
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: #fff;
+      background: #ff7f50;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      background: #ff5722;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #ddd;
+    }
+
+    /* Optional: animated background circles */
+    .circles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+      overflow: hidden;
+    }
+
+    .circles div {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      animation: float 20s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="tree" id="familyTree"></div>
 
-  <script>
-    // Load your family JSON file
-    fetch('family.json')
-      .then(response => response.json())
-      .then(data => {
-        const treeContainer = document.getElementById('familyTree');
+  <div class="circles">
+    <div style="width:100px; height:100px; left:10%; animation-duration:25s;"></div>
+    <div style="width:80px; height:80px; left:70%; animation-duration:18s;"></div>
+    <div style="width:150px; height:150px; left:40%; animation-duration:30s;"></div>
+    <div style="width:50px; height:50px; left:85%; animation-duration:22s;"></div>
+  </div>
 
-        function createTree(member) {
-          const li = document.createElement('li');
-          li.innerHTML = `<div>${member.name}</div>`;
-          
-          if (member.children && member.children.length > 0) {
-            const ul = document.createElement('ul');
-            member.children.forEach(child => {
-              ul.appendChild(createTree(child));
-            });
-            li.appendChild(ul);
-          }
-          return li;
-        }
+  <header>Welcome to My Family Tree</header>
 
-        const ulRoot = document.createElement('ul');
-        ulRoot.appendChild(createTree(data));
-        treeContainer.appendChild(ulRoot);
-      })
-      .catch(err => console.error('Error loading JSON:', err));
-  </script>
+  <div class="intro">
+    Discover your family history and explore the connections between generations. 
+    Build your family tree and see your ancestors come to life in a beautiful, interactive layout.
+  </div>
+
+  <a href="tree.html" class="btn">View Family Tree</a>
+
+  <footer>
+    &copy; 2025 My Family Tree. All rights reserved.
+  </footer>
+
 </body>
 </html>
