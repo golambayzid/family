@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mridha Family Tree</title>
+<title>Simple Mridha Family Tree</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -17,46 +17,81 @@ h1 {
   color: #333;
 }
 
-.tree ul {
-  padding-top: 20px;
-  position: relative;
-  list-style-type: none;
-  text-align: center;
-}
-
-.tree li {
-  display: inline-block;
-  vertical-align: top;
-  text-align: center;
-  position: relative;
-  padding: 20px 5px 0 5px;
-}
-
-/* Horizontal lines connecting siblings */
-.tree li::before, .tree li::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 20px;
-  border-top: 2px solid #333;
-}
-
-.tree li::before { left: -50%; }
-.tree li::after { right: -50%; border-left: 2px solid #333; }
-
-/* Remove lines if only child */
-.tree li:only-child::before, .tree li:only-child::after { display: none; }
-
-/* Vertical line from parent to children */
-.tree ul::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  border-left: 2px solid #333;
-  height: 20px;
-}
-
 /* Boxes for each member */
-.t
+.family-tree ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.family-tree li {
+  margin: 5px 0;
+}
+
+.family-tree li div {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  background: #fff;
+  font-weight: bold;
+  color: #333;
+}
+</style>
+</head>
+<body>
+
+<h1>Mridha Family Tree</h1>
+
+<div class="family-tree">
+  <ul>
+    <li>
+      <div>Babar Ali Haolader</div>
+      <ul>
+        <li>
+          <div>Akkel Ali Mridha</div>
+          <ul>
+            <li><div>Md. Anes Mridha</div></li>
+            <li>
+              <div>Md. Abser Kerani</div>
+              <ul>
+                <li>
+                  <div>Manik</div>
+                  <ul>
+                    <li><div>a</div></li>
+                    <li><div>b</div></li>
+                  </ul>
+                </li>
+                <li><div>2</div></li>
+                <li><div>3</div></li>
+                <li><div>4</div></li>
+                <li><div>5</div></li>
+                <li><div>6</div></li>
+                <li><div>7</div></li>
+                <li><div>8</div></li>
+                <li><div>9</div></li>
+                <li><div>Lotif</div></li>
+              </ul>
+            </li>
+            <li><div>Md. Afes Mridha</div></li>
+            <li><div>Md. Momin Uddin Mridha</div></li>
+            <li><div>Md. Hossen Uddin Mridha</div></li>
+            <li><div>Md. Asmot Ali Mridha</div></li>
+            <li><div>Mst. Amena</div></li>
+            <li><div>Dont Know</div></li>
+            <li><div>Dont Know</div></li>
+          </ul>
+        </li>
+        <li>
+          <div>Akram Ali Mridha</div>
+          <ul>
+            <li><div>Mobarak Ali</div></li>
+            <li><div>Gohur Ali</div></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>
