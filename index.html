@@ -1,110 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mdridha Family Tree</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mdridha Family Tree</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  padding: 20px;
+}
 
-    .tree {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      overflow-x: auto;
-      padding: 20px;
-    }
+.tree {
+  display: flex;
+  justify-content: center;
+}
 
-    ul {
-      display: flex;
-      list-style-type: none;
-      padding-left: 20px;
-      position: relative;
-    }
+ul {
+  padding-top: 20px;
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
 
-    li {
-      text-align: center;
-      margin: 0 20px;
-      position: relative;
-    }
+li {
+  display: table-cell;
+  text-align: center;
+  vertical-align: top;
+  padding: 20px 5px 0 5px;
+  position: relative;
+}
 
-    li div {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #4CAF50;
-      color: #fff;
-      font-weight: bold;
-      border-radius: 8px;
-      border: 2px solid #333;
-    }
+li::before, li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #333;
+  width: 50%;
+  height: 20px;
+}
 
-    /* Horizontal connectors */
-    li::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: -20px;
-      width: 20px;
-      height: 2px;
-      background: #333;
-    }
+li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #333;
+}
 
-    li:first-child::before {
-      display: none;
-    }
+li:only-child::before, li:only-child::after {
+  display: none;
+}
 
-    /* Vertical connector for children */
-    ul ul::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      width: 2px;
-      height: 20px;
-      background: #333;
-    }
-  </style>
+li div {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  background: #fff;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+ul ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
+}
+</style>
 </head>
 <body>
 
-  <h1 style="text-align:center; margin-bottom:20px;">Mdridha Family Tree</h1>
+<h1 style="text-align:center;">Mdridha Family Tree</h1>
 
-  <div class="tree" id="familyTree"></div>
+<div class="tree" id="familyTree"></div>
 
-  <script>
-    const treeContainer = document.getElementById('familyTree');
+<script>
+const familyData = {
+  "name": "Grandfather Mdridha",
+  "children": [
+    {
+      "name": "Father Mdridha",
+      "children": [
+        {"name": "Child1 Mdridha"},
+        {"name": "Child2 Mdridha"}
+      ]
+    },
+    {
+      "name": "Uncle Mdridha",
+      "children": [
+        {"name": "Cousin1 Mdridha"},
+        {"name": "Cousin2 Mdridha"}
+      ]
+    }
+  ]
+};
 
-    // Fetch family data from JSON file
-    fetch('family.json')
-      .then(response => response.json())
-      .then(familyData => {
+const treeContainer = document.getElementById('familyTree');
 
-        function createTree(member) {
-          const li = document.createElement('li');
-          li.innerHTML = `<div>${member.name}</div>`;
+function createTree(member) {
+  const li = document.createElement('li');
+  li.innerHTML = `<div>${member.name}</div>`;
 
-          if (member.children && member.children.length > 0) {
-            const ul = document.createElement('ul');
-            member.children.forEach(child => {
-              ul.appendChild(createTree(child));
-            });
-            li.appendChild(ul);
-          }
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => {
+      ul.appendChild(createTree(child));
+    });
+    li.appendChild(ul);
+  }
+  return li;
+}
 
-          return li;
-        }
-
-        const ulRoot = document.createElement('ul');
-        ulRoot.appendChild(createTree(familyData));
-        treeContainer.appendChild(ulRoot);
-
-      })
-      .catch(err => console.error("Error loading JSON:", err));
-  </script>
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
+</script>
 
 </body>
 </html>
