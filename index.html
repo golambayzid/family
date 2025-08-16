@@ -3,106 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Family Tree</title>
+  <title>Mdridha Family Tree</title>
   <style>
-    /* Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    header {
-      padding: 40px 20px;
-      text-align: center;
-      font-size: 2.5em;
-      font-weight: bold;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    }
-
-    .intro {
-      max-width: 800px;
-      text-align: center;
-      margin: 20px 20px 40px;
-      font-size: 1.2em;
-      line-height: 1.6;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      color: #fff;
-      background: #ff7f50;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      background: #ff5722;
-    }
-
-    footer {
-      margin-top: auto;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
       padding: 20px;
+    }
+
+    .tree {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-x: auto;
+      padding: 20px;
+    }
+
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    li {
       text-align: center;
-      font-size: 0.9em;
-      color: #ddd;
+      margin: 0 20px;
+      position: relative;
     }
 
-    /* Optional: animated background circles */
-    .circles {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-      overflow: hidden;
+    li div {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 8px;
+      border: 2px solid #333;
     }
 
-    .circles div {
+    /* Horizontal connectors */
+    li::before {
+      content: '';
       position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      animation: float 20s linear infinite;
+      top: 50%;
+      left: -20px;
+      width: 20px;
+      height: 2px;
+      background: #333;
     }
 
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-100vh) rotate(360deg); }
+    li:first-child::before {
+      display: none;
+    }
+
+    /* Vertical connector for children */
+    ul ul::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #333;
     }
   </style>
 </head>
 <body>
 
-  <div class="circles">
-    <div style="width:100px; height:100px; left:10%; animation-duration:25s;"></div>
-    <div style="width:80px; height:80px; left:70%; animation-duration:18s;"></div>
-    <div style="width:150px; height:150px; left:40%; animation-duration:30s;"></div>
-    <div style="width:50px; height:50px; left:85%; animation-duration:22s;"></div>
-  </div>
+  <h1 style="text-align:center; margin-bottom:20px;">Mdridha Family Tree</h1>
 
-  <header>Welcome to My Family Tree</header>
+  <div class="tree" id="familyTree"></div>
 
-  <div class="intro">
-    Discover your family history and explore the connections between generations. 
-    Build your family tree and see your ancestors come to life in a beautiful, interactive layout.
-  </div>
+  <script>
+    // Mdridha family data
+    const familyData = {
+      "name": "Grandfather Mdridha",
+      "children": [
+        {
+          "name": "Father Mdridha",
+          "children": [
+            {"name": "Child1 Mdridha"},
+            {"name": "Child2 Mdridha"}
+          ]
+        },
+        {
+          "name": "Uncle Mdridha",
+          "children": [
+            {"name": "Cousin1 Mdridha"},
+            {"name": "Cousin2 Mdridha"}
+          ]
+        }
+      ]
+    };
 
-  <a href="tree.html" class="btn">View Family Tree</a>
+    const treeContainer = document.getElementById('familyTree');
 
-  <footer>
-    &copy; 2025 My Family Tree. All rights reserved.
-  </footer>
+    function createTree(member) {
+      const li = document.createElement('li');
+      li.innerHTML = `<div>${member.name}</div>`;
+
+      if (member.children && member.children.length > 0) {
+        const ul = document.createElement('ul');
+        member.children.forEach(child => {
+          ul.appendChild(createTree(child));
+        });
+        li.appendChild(ul);
+      }
+
+      return li;
+    }
+
+    const ulRoot = document.createElement('ul');
+    ulRoot.appendChild(createTree(familyData));
+    treeContainer.appendChild(ulRoot);
+  </script>
 
 </body>
 </html>
