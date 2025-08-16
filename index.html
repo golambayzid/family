@@ -80,31 +80,54 @@ ul ul::before {
 </head>
 <body>
 
-<h1>Mdridha 7-Generation Family Tree</h1>
+<h1>Mdridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
 <script>
-// 7-generation family data
+// Edit names directly here
 const familyData = {
-  "name": "Generation 1 - A",
+  "name": "Grandfather Mdridha",
   "children": [
     {
-      "name": "Generation 2 - B",
+      "name": "Father Mdridha",
       "children": [
-        {
-          "name": "Generation 3 - C",
-          "children": [
-            {
-              "name": "Generation 4 - D",
-              "children": [
-                {
-                  "name": "Generation 5 - E",
-                  "children": [
-                    {
-                      "name": "Generation 6 - F",
-                      "children": [
-                        {
-                          "name": "Generation 7 - G1",
-                          "children": [
-                            {"name": "G1 Child1"},
+        {"name": "Child1 Mdridha"},
+        {"name": "Child2 Mdridha"}
+      ]
+    },
+    {
+      "name": "Uncle Mdridha",
+      "children": [
+        {"name": "Cousin1 Mdridha"},
+        {"name": "siam Mdridha"}
+      ]
+    }
+  ]
+};
+
+const treeContainer = document.getElementById('familyTree');
+
+function createTree(member) {
+  const li = document.createElement('li');
+  li.innerHTML = `<div>${member.name}</div>`;
+
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => {
+      ul.appendChild(createTree(child));
+    });
+    li.appendChild(ul);
+  }
+  return li;
+}
+
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
+</script>
+
+</body>
+</html>
+
+
