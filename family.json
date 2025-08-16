@@ -1,26 +1,19 @@
 {
-  "name": "Greatsaafseaf Grandfather",
+  "name": "Grandfather Mdridha",
   "children": [
     {
-      "name": "Grandfather",
+      "name": "Father Mdridha",
       "children": [
-        {
-          "name": "Father",
-          "children": [
-            { "name": "Sterling" },
-            { "name": "Your Brother" }
-          ]
-        },
-        {
-          "name": "Uncle",
-          "children": [
-            { "name": "Cousin 1" },
-            { "name": "Cousin 222" }
-          ]
-        }
+        {"name": "Child1 Mdridha"},
+        {"name": "Child2 Mdridha"}
+      ]
+    },
+    {
+      "name": "Uncle Mdridha",
+      "children": [
+        {"name": "Cousin1 Mdridha"},
+        {"name": "Cousin2 Mdridha"}
       ]
     }
   ]
 }
-
-
