@@ -17,22 +17,23 @@ h1 {
 }
 
 .tree {
-  display: flex;
-  justify-content: center;
+  overflow-x: auto; /* allow horizontal scroll */
+  padding: 20px 0;
 }
 
 ul {
   padding-top: 20px;
   position: relative;
-  display: table;
-  margin: 0 auto;
+  display: flex;      /* flex layout for children */
+  justify-content: center;
+  list-style: none;
+  margin: 0;
 }
 
 li {
-  display: table-cell;
   text-align: center;
   vertical-align: top;
-  padding: 20px 5px 0 5px;
+  margin: 0 10px;   /* space between siblings */
   position: relative;
 }
 
@@ -40,21 +41,16 @@ li::before, li::after {
   content: '';
   position: absolute;
   top: 0;
-  right: 50%;
-  border-top: 2px solid #333;
   width: 50%;
-  height: 20px;
+  height: 2px;
+  background: #333;
 }
 
-li::after {
-  right: auto;
-  left: 50%;
-  border-left: 2px solid #333;
-}
+li::before { right: 50%; border-top: 2px solid #333; }
+li::after { left: 50%; border-top: 2px solid #333; }
 
-li:only-child::before, li:only-child::after {
-  display: none;
-}
+li:only-child::before,
+li:only-child::after { display: none; }
 
 li div {
   display: inline-block;
@@ -85,7 +81,6 @@ ul ul::before {
 <div class="tree" id="familyTree"></div>
 
 <script>
-// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -93,24 +88,27 @@ const familyData = {
       "name": "Akkel Ali Mdridha",
       "children": [
         {"name": "Md. Anes Mridha"},
-        {"name": "Md. Abser Kerani",
-                      "children": [
-                      {"name": "Manik",
-                                        "children": [
-                                        {"name": "a"},
-                                        {"name": "b"}]
-                                      
-                      },
-                      {"name": "2"},
-                      {"name": "3"},
-                      {"name": "4"},
-                      {"name": "5"},
-                      {"name": "6"},
-                      {"name": "7"},
-                      {"name": "8"},
-                      {"name": "9"},
-                      {"name": "Lotif"}]                                   
-                                        },
+        {
+          "name": "Md. Abser Kerani",
+          "children": [
+            {
+              "name": "Manik",
+              "children": [
+                {"name": "a"},
+                {"name": "b"}
+              ]
+            },
+            {"name": "2"},
+            {"name": "3"},
+            {"name": "4"},
+            {"name": "5"},
+            {"name": "6"},
+            {"name": "7"},
+            {"name": "8"},
+            {"name": "9"},
+            {"name": "Lotif"}
+          ]
+        }, 
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
@@ -130,22 +128,19 @@ const familyData = {
   ]
 };
 
-const treeContainer = document.getElementById('familyTree');
-
 function createTree(member) {
   const li = document.createElement('li');
   li.innerHTML = `<div>${member.name}</div>`;
 
   if (member.children && member.children.length > 0) {
     const ul = document.createElement('ul');
-    member.children.forEach(child => {
-      ul.appendChild(createTree(child));
-    });
+    member.children.forEach(child => ul.appendChild(createTree(child)));
     li.appendChild(ul);
   }
   return li;
 }
 
+const treeContainer = document.getElementById('familyTree');
 const ulRoot = document.createElement('ul');
 ulRoot.appendChild(createTree(familyData));
 treeContainer.appendChild(ulRoot);
@@ -153,8 +148,3 @@ treeContainer.appendChild(ulRoot);
 
 </body>
 </html>
-
-
-
-
-
