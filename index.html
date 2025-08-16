@@ -10,26 +10,38 @@ body {
   background: #f0f2f5;
   padding: 20px;
 }
-h1 { text-align: center; margin-bottom: 20px; }
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
-.member {
-  padding: 8px 15px;
+
+/* Container for the list */
+.family-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Each family member */
+.family-list li {
+  margin: 5px 0;
+  padding: 5px 10px;
   border: 2px solid #4CAF50;
   border-radius: 6px;
   background: #fff;
   font-weight: bold;
   color: #333;
 }
+
+/* Indent for children */
+.family-list ul {
+  padding-left: 20px;
+}
 </style>
 </head>
 <body>
 
-<h1>Mridha Family Row</h1>
-<div class="row" id="familyRow"></div>
+<h1>Mridha Family List</h1>
+<ul id="familyList" class="family-list"></ul>
 
 <script>
 const familyData = {
@@ -71,20 +83,23 @@ const familyData = {
   ]
 };
 
-const container = document.getElementById('familyRow');
+const container = document.getElementById('familyList');
 
-function listFamily(member) {
-  const div = document.createElement('div');
-  div.className = 'member';
-  div.textContent = member.name;
-  container.appendChild(div);
-
-  if (member.children) {
-    member.children.forEach(child => listFamily(child));
+function renderFamily(member) {
+  const li = document.createElement('li');
+  li.textContent = member.name;
+  
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => ul.appendChild(renderFamily(child)));
+    li.appendChild(ul);
   }
+  
+  return li;
 }
 
-listFamily(familyData);
+// Render the full family
+container.appendChild(renderFamily(familyData));
 </script>
 
 </body>
