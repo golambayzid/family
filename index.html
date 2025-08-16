@@ -3,89 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generation 1</title>
+<title>Mdridha Family Tree</title>
 <style>
-body { font-family: Arial; background: #f0f2f5; padding: 20px; }
-.tree-container { overflow-x: auto; padding: 20px; white-space: nowrap; }
-ul { display: inline-block; list-style-type: none; padding-left: 0; position: relative; }
-li { display: inline-block; vertical-align: top; text-align: center; margin: 20px; position: relative; }
-li div { display: inline-block; padding: 10px 20px; background: #4CAF50; color: #fff; font-weight: bold; border-radius: 8px; border: 2px solid #333; position: relative; z-index: 1; }
-li::before, li::after { content: ''; position: absolute; top: 50%; height: 2px; background: #333; }
-li::before { left: -20px; width: 20px; }
-li::after { left: 100%; width: 20px; }
-li:only-child::before, li:only-child::after { display: none; }
-ul ul::before { content: ''; position: absolute; top: -20px; left: 50%; width: 2px; height: 20px; background: #333; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tree {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  padding-top: 20px;
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
+
+li {
+  display: table-cell;
+  text-align: center;
+  vertical-align: top;
+  padding: 20px 5px 0 5px;
+  position: relative;
+}
+
+li::before, li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #333;
+  width: 50%;
+  height: 20px;
+}
+
+li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #333;
+}
+
+li:only-child::before, li:only-child::after {
+  display: none;
+}
+
+li div {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  background: #fff;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+ul ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
+}
 </style>
 </head>
 <body>
 
-<h1>Generation 1</h1>
-<div class="tree-container" id="familyTree"></div>
+<h1>Mdridha 7-Generation Family Tree</h1>
+
+<div class="tree" id="familyTree"></div>
 
 <script>
-// Define the full 7-generation tree
+// 7-generation family data
 const familyData = {
-  "name": "A",
+  "name": "Generation 1 - A",
   "children": [
     {
-      "name": "B",
+      "name": "Generation 2 - B",
       "children": [
         {
-          "name": "C",
+          "name": "Generation 3 - C",
           "children": [
             {
-              "name": "D",
+              "name": "Generation 4 - D",
               "children": [
                 {
-                  "name": "E",
+                  "name": "Generation 5 - E",
                   "children": [
                     {
-                      "name": "F",
+                      "name": "Generation 6 - F",
                       "children": [
                         {
-                          "name": "G",
+                          "name": "Generation 7 - G1",
                           "children": [
-                            {"name": "G1"}, {"name": "G2"}
-                          ]
-                        },
-                        {
-                          "name": "F2",
-                          "children": [{"name": "F2a"},{"name":"F2b"}]
-                        }
-                      ]
-                    },
-                    {"name": "E2", "children":[{"name":"E2a"},{"name":"E2b"}]}
-                  ]
-                },
-                {"name":"D2", "children":[{"name":"D2a"},{"name":"D2b"}]}
-              ]
-            },
-            {"name":"C2","children":[{"name":"C2a"},{"name":"C2b"}]}
-          ]
-        },
-        {"name":"B2","children":[{"name":"B2a"},{"name":"B2b"}]}
-      ]
-    },
-    {"name":"B3","children":[{"name":"B3a"},{"name":"B3b"}]}
-  ]
-};
-
-// Tree rendering function
-const treeContainer = document.getElementById('familyTree');
-function createTree(member) {
-  const li = document.createElement('li');
-  li.innerHTML = `<div>${member.name}</div>`;
-  if(member.children && member.children.length > 0){
-    const ul = document.createElement('ul');
-    member.children.forEach(child => ul.appendChild(createTree(child)));
-    li.appendChild(ul);
-  }
-  return li;
-}
-const ulRoot = document.createElement('ul');
-ulRoot.appendChild(createTree(familyData));
-treeContainer.appendChild(ulRoot);
-</script>
-
-</body>
-</html>
+                            {"name": "G1 Child1"},
