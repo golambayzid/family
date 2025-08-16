@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mridha Family Tree</title>
+<title>Mridha Family Row</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -16,48 +16,44 @@ h1 {
   margin-bottom: 20px;
 }
 
-.tree ul {
-  padding-top: 20px;
-  position: relative;
+.row {
   display: flex;
-  justify-content: center;
-  list-style-type: none;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.tree li {
-  text-align: center;
-  position: relative;
-  padding: 20px 5px 0 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.tree li::before, .tree li::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 20px;
-  border-top: 2px solid #333;
-}
-
-.tree li::before {
-  left: -50%;
-}
-
-.tree li::after {
-  right: -50%;
-  border-left: 2px solid #333;
-}
-
-.tree li:only-child::before, 
-.tree li:only-child::after {
-  display: none;
-}
-
-.tree li div {
-  display: inline-block;
-  padding: 10px 20px;
+.member {
+  padding: 8px 15px;
   border: 2px solid #4CAF50;
-  border-radius: 8px;
-  backgroun
+  border-radius: 6px;
+  background: #fff;
+  font-weight: bold;
+  color: #333;
+}
+</style>
+</head>
+<body>
+
+<h1>Mridha Family Row</h1>
+
+<div class="row" id="familyRow"></div>
+
+<script>
+const familyData = {
+  "name": "Babar Ali Haolader",
+  "children": [
+    {
+      "name": "Akkel Ali Mridha",
+      "children": [
+        {"name": "Md. Anes Mridha"},
+        {"name": "Md. Abser Kerani",
+          "children": [
+            {"name": "Manik",
+              "children": [
+                {"name": "a"},
+                {"name": "b"}
+              ]
+            },
+            {"name": "2"}, {"name": "3"}, {"name": "4"}, {"name": "5"},
+            {"name": "6"}, {"name": "7"}, {"name": "8"}, {"name": "9"},
+            {"name": "Lotif"}
