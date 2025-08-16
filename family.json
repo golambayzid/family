@@ -1,0 +1,24 @@
+{
+  "name": "Great Grandfather",
+  "children": [
+    {
+      "name": "Grandfather",
+      "children": [
+        {
+          "name": "Father",
+          "children": [
+            { "name": "Sterling" },
+            { "name": "Your Brother" }
+          ]
+        },
+        {
+          "name": "Uncle",
+          "children": [
+            { "name": "Cousin 1" },
+            { "name": "Cousin 2" }
+          ]
+        }
+      ]
+    }
+  ]
+}

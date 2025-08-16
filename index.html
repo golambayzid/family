@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Tree</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #f4f4f9;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 20px;
+      border-left: 2px solid #999;
+      margin: 0;
+    }
+    li {
+      margin: 8px 0;
+      position: relative;
+    }
+    li::before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      top: 10px;
+      width: 20px;
+      height: 2px;
+      background: #999;
+    }
+    .node {
+      padding: 6px 12px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h1>👨‍👩‍👧 Family Tree</h1>
+  <div id="tree"></div>
+
+  <script>
+    async function loadFamilyTree() {
+      try {
+        const response = await fetch('family.json');
+        const data = await response.json();
+        const container = document.getElementById('tree');
+
+        function createTree(node) {
+          let li = document.createElement('li');
+          li.innerHTML = `<div class=\"node\">${node.name}</div>`;
+
+          if (node.children && node.children.length > 0) {
+            let ul = document.createElement('ul');
+            node.children.forEach(child => {
+              ul.appendChild(createTree(child));
+            });
+            li.appendChild(ul);
+          }
+          return li;
+        }
+
+        let ul = document.createElement('ul');
+        ul.appendChild(createTree(data));
+        container.appendChild(ul);
+
+      } catch (error) {
+        console.error('Error loading family.json', error);
+      }
+    }
+
+    loadFamilyTree();
+  </script>
+</body>
+</html>
