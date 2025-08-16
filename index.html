@@ -17,14 +17,16 @@ h1 {
 }
 
 .tree {
-  overflow-x: auto; /* allow horizontal scroll */
+  overflow-x: auto;
   padding: 20px 0;
+  border-bottom: 2px solid #333;
+  margin-bottom: 20px;
 }
 
 ul {
   padding-top: 20px;
   position: relative;
-  display: flex;      /* flex layout for children */
+  display: flex;
   justify-content: center;
   list-style: none;
   margin: 0;
@@ -33,7 +35,7 @@ ul {
 li {
   text-align: center;
   vertical-align: top;
-  margin: 0 10px;   /* space between siblings */
+  margin: 0 10px;
   position: relative;
 }
 
@@ -72,6 +74,14 @@ ul ul::before {
   border-left: 2px solid #333;
   height: 20px;
 }
+
+#allNames {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+}
 </style>
 </head>
 <body>
@@ -79,6 +89,9 @@ ul ul::before {
 <h1>Mdridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
+
+<h2>All Family Members:</h2>
+<div id="allNames"></div>
 
 <script>
 const familyData = {
@@ -108,7 +121,7 @@ const familyData = {
             {"name": "9"},
             {"name": "Lotif"}
           ]
-        }, 
+        },
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
@@ -128,6 +141,7 @@ const familyData = {
   ]
 };
 
+// Function to create the tree
 function createTree(member) {
   const li = document.createElement('li');
   li.innerHTML = `<div>${member.name}</div>`;
@@ -140,10 +154,26 @@ function createTree(member) {
   return li;
 }
 
+// Render tree
 const treeContainer = document.getElementById('familyTree');
 const ulRoot = document.createElement('ul');
 ulRoot.appendChild(createTree(familyData));
 treeContainer.appendChild(ulRoot);
+
+// Function to list all names
+function listAllNames(member, list = []) {
+  list.push(member.name);
+  if (member.children) {
+    member.children.forEach(child => listAllNames(child, list));
+  }
+  return list;
+}
+
+// Render all names
+const allNamesContainer = document.getElementById('allNames');
+const allNames = listAllNames(familyData);
+allNamesContainer.innerHTML = '<ul>' + allNames.map(name => `<li>${name}</li>`).join('') + '</ul>';
+
 </script>
 
 </body>
