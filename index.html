@@ -7,40 +7,44 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f0f2f5;
+  background: #f9f9f9;
   padding: 20px;
 }
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
-}
-
-/* Container for the list */
-.family-list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-/* Each family member */
-.family-list li {
-  margin: 5px 0;
-  padding: 5px 10px;
-  border: 2px solid #4CAF50;
-  border-radius: 6px;
-  background: #fff;
-  font-weight: bold;
   color: #333;
 }
 
-/* Indent for children */
+/* Simple family list */
+.family-list {
+  list-style-type: none;
+  padding-left: 0;
+  color: #111;
+}
+
+.family-list li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+/* Indentation for children */
 .family-list ul {
   padding-left: 20px;
 }
+
+/* Optional: different font weight for parent vs children */
+.family-list li > ul > li {
+  font-weight: normal;
+}
+
 </style>
 </head>
 <body>
 
-<h1>Mridha Family List</h1>
+<h1>Mridha Family</h1>
+
 <ul id="familyList" class="family-list"></ul>
 
 <script>
@@ -88,19 +92,17 @@ const container = document.getElementById('familyList');
 function renderFamily(member) {
   const li = document.createElement('li');
   li.textContent = member.name;
-  
+
   if (member.children && member.children.length > 0) {
     const ul = document.createElement('ul');
     member.children.forEach(child => ul.appendChild(renderFamily(child)));
     li.appendChild(ul);
   }
-  
+
   return li;
 }
 
-// Render the full family
 container.appendChild(renderFamily(familyData));
 </script>
 
-</body>
-</html>
+</bo
