@@ -19,7 +19,6 @@ h1 {
 .tree {
   display: flex;
   justify-content: center;
-  overflow-x: auto;
 }
 
 ul {
@@ -67,30 +66,26 @@ li div {
   color: #333;
   position: relative;
   z-index: 1;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
 }
 
-li div ul {
-  margin: 8px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-li div ul li {
-  display: block;
-  padding: 4px 0;
-  border: none;
+ul ul::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  border-left: 2px solid #333;
+  height: 20px;
 }
 </style>
 </head>
 <body>
 
-<h1>Mridha Family Tree</h1>
+<h1>Mdridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
 <script>
-// Family data
+// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -98,12 +93,11 @@ const familyData = {
       "name": "Akkel Ali Mdridha",
       "children": [
         {"name": "Md. Anes Mridha"},
-        {
-          "name": "Md. Abser Kerani",
-          "children": [
-            {"list": ["Manik","Lotif"]}  // <<== লিস্ট আকারে রাখা হলো
-          ]
-        },
+        {"name": "Md. Abser Kerani",
+                      "children": [
+                      {"name": "Manik"},
+                      {"name": "Lotif"}]                                   
+                                        },
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
@@ -127,16 +121,7 @@ const treeContainer = document.getElementById('familyTree');
 
 function createTree(member) {
   const li = document.createElement('li');
-  const div = document.createElement('div');
-
-  if (member.name) {
-    div.textContent = member.name;
-  }
-  if (member.list) {
-    div.innerHTML = `<strong>Children</strong><ul>${member.list.map(n=>`<li>${n}</li>`).join('')}</ul>`;
-  }
-
-  li.appendChild(div);
+  li.innerHTML = `<div>${member.name}</div>`;
 
   if (member.children && member.children.length > 0) {
     const ul = document.createElement('ul');
