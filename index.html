@@ -76,42 +76,16 @@ ul ul::before {
   border-left: 2px solid #333;
   height: 20px;
 }
-
-#childrenList {
-  margin-top: 40px;
-  padding: 20px;
-  background: #fff;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#childrenList h2 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-#childrenList ul {
-  list-style-type: decimal;
-  padding-left: 20px;
-  text-align: left;
-}
 </style>
 </head>
 <body>
 
-<h1>Mridha Family Tree</h1>
+<h1>Mdridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
-<div id="childrenList">
- 
-  <ul id="childListUl"></ul>
-</div>
-
 <script>
+// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -119,7 +93,24 @@ const familyData = {
       "name": "Akkel Ali Mdridha",
       "children": [
         {"name": "Md. Anes Mridha"},
-        {"name": "Md. Abser Mridha"},
+        {"name": "Md. Abser Kerani",
+                      "children": [
+                      {"name": "Manik",
+                                        "children": [
+                                        {"name": "a"},
+                                        {"name": "b"}]
+                                      
+                      },
+                      {"name": "2"},
+                      {"name": "3"},
+                      {"name": "4"},
+                      {"name": "5"},
+                      {"name": "6"},
+                      {"name": "7"},
+                      {"name": "8"},
+                      {"name": "9"},
+                      {"name": "Lotif"}]                                   
+                                        },
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
@@ -158,32 +149,14 @@ function createTree(member) {
 const ulRoot = document.createElement('ul');
 ulRoot.appendChild(createTree(familyData));
 treeContainer.appendChild(ulRoot);
-
-// -------- Show Md. Abser Mridha children as list --------
-function findMember(member, name) {
-  if (member.name === name) return member;
-  if (member.children) {
-    for (let child of member.children) {
-      const found = findMember(child, name);
-      if (found) return found;
-    }
-  }
-  return null;
-}
-
-const abser = findMember(familyData, "Md. Abser Mridha");
-const childListUl = document.getElementById('childListUl');
-
-if (abser && abser.children) {
-  abser.children.forEach((c, i) => {
-    const li = document.createElement('li');
-    li.textContent = c.name;
-    childListUl.appendChild(li);
-  });
-}
 </script>
 
 </body>
 </html>
+
+
+
+
+
 
 
