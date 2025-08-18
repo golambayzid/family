@@ -11,7 +11,7 @@ body {
   padding: 20px;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -19,6 +19,7 @@ h1 {
 .tree {
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 ul {
@@ -77,18 +78,30 @@ ul ul::before {
   height: 20px;
 }
 
-/* শুধু শেষ লেভেলের চাইল্ডদের জন্য লিস্ট আকারে দেখাবে */
-li:has(li:only-child) ul li {
-  display: list-item;
-  text-align: left;
+#lastRowList {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+#lastRowList li {
+  padding: 10px;
+  margin: 5px 0;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
 }
 </style>
 </head>
 <body>
 
-<h1>Mdridha Family Tree</h1>
-
+<h1>Mridha Family Tree</h1>
 <div class="tree" id="familyTree"></div>
+
+<h2>Special List (Manik & Lotif)</h2>
+<ul id="lastRowList"></ul>
 
 <script>
 // Family data
@@ -124,26 +137,4 @@ const familyData = {
   ]
 };
 
-const treeContainer = document.getElementById('familyTree');
-
-function createTree(member) {
-  const li = document.createElement('li');
-  li.innerHTML = `<div>${member.name}</div>`;
-
-  if (member.children && member.children.length > 0) {
-    const ul = document.createElement('ul');
-    member.children.forEach(child => {
-      ul.appendChild(createTree(child));
-    });
-    li.appendChild(ul);
-  }
-  return li;
-}
-
-const ulRoot = document.createElement('ul');
-ulRoot.appendChild(createTree(familyData));
-treeContainer.appendChild(ulRoot);
-</script>
-
-</body>
-</html>
+const treeContainer = document.getElementById('family
