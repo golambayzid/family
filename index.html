@@ -77,12 +77,10 @@ ul ul::before {
   height: 20px;
 }
 
-/* ✅ শুধু শেষ লেভেলের জন্য আলাদা */
-li ul:empty { display: none; }
-
-li ul li {
-  display: block;   /* শেষ row কে ব্লক আকারে এক কলামে দেখাবে */
-  margin: 5px 0;
+/* শুধু শেষ লেভেলের চাইল্ডদের জন্য লিস্ট আকারে দেখাবে */
+li:has(li:only-child) ul li {
+  display: list-item;
+  text-align: left;
 }
 </style>
 </head>
@@ -93,7 +91,7 @@ li ul li {
 <div class="tree" id="familyTree"></div>
 
 <script>
-// Corrected family data
+// Family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
