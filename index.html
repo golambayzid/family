@@ -101,7 +101,7 @@ const familyData = {
         {
           "name": "Md. Abser Kerani",
           "children": [
-            {"list": ["Manik","Lotif"]}  // Manik & Lotif এক বক্সে লিস্ট
+            {"list": ["Manik","Lotif"]}  // <<== লিস্ট আকারে রাখা হলো
           ]
         },
         {"name": "Md. Afes Mridha"},
@@ -133,4 +133,25 @@ function createTree(member) {
     div.textContent = member.name;
   }
   if (member.list) {
-    div.innerHTML = `<
+    div.innerHTML = `<strong>Children</strong><ul>${member.list.map(n=>`<li>${n}</li>`).join('')}</ul>`;
+  }
+
+  li.appendChild(div);
+
+  if (member.children && member.children.length > 0) {
+    const ul = document.createElement('ul');
+    member.children.forEach(child => {
+      ul.appendChild(createTree(child));
+    });
+    li.appendChild(ul);
+  }
+  return li;
+}
+
+const ulRoot = document.createElement('ul');
+ulRoot.appendChild(createTree(familyData));
+treeContainer.appendChild(ulRoot);
+</script>
+
+</body>
+</html>
