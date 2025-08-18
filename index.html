@@ -24,7 +24,7 @@ h1 {
 ul {
   padding-top: 20px;
   position: relative;
-  display: table;
+  display: table; /* মূল লেভেল টেবিলের মতো থাকবে */
   margin: 0 auto;
 }
 
@@ -76,16 +76,21 @@ ul ul::before {
   border-left: 2px solid #333;
   height: 20px;
 }
+
+/* ✅ নতুন স্টাইল – যাতে Manik ও Lotif এক কলামে আসে */
+li ul li {
+  display: block; /* side-by-side না হয়ে একটার নিচে একটা */
+  margin: 10px auto;
+}
 </style>
 </head>
 <body>
 
-<h1>Mdridha Family Tree</h1>
+<h1>Mridha Family Tree</h1>
 
 <div class="tree" id="familyTree"></div>
 
 <script>
-// Corrected family data
 const familyData = {
   "name": "Babar Ali Haolader",
   "children": [
@@ -94,10 +99,10 @@ const familyData = {
       "children": [
         {"name": "Md. Anes Mridha"},
         {"name": "Md. Abser Kerani",
-                      "children": [
-                      {"name": "Manik"},
-                      {"name": "Lotif"}]                                   
-                                        },
+          "children": [
+            {"name": "Manik"},
+            {"name": "Lotif"}
+          ]},
         {"name": "Md. Afes Mridha"},
         {"name": "Md. Momin Uddin Mridha"},
         {"name": "Md. Hossen Uddin Mridha"},
